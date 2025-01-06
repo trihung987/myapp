@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
@@ -7,10 +7,22 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useEffect } from 'react';
+import introducePage from '.';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/explore');
+      console.log('Navigating to Explore tab after 10 seconds');
+    }, 10000); // 10s
 
+    return () => clearTimeout(timer);
+  }, [router]);
+  
   return (
     <Tabs
       screenOptions={{
